@@ -1,0 +1,12 @@
+version: 0.2
+
+env:
+  variables:
+    env: dev
+
+phases:
+  build:
+    commands:
+      - terraform get -update=true
+      - terraform init -backend-config=config/backend-${env}.conf -backend=true
+      - terraform apply -var-file=config/${env}.tfvars -var password=barbarbar -lock=true -auto-approve
